@@ -9,6 +9,7 @@ namespace SportsStore.UnitTests
         [TestMethod]
         public void TestMethod1()
         {
+
         }
     }
 }
