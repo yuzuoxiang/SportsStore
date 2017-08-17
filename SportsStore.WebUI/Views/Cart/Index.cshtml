@@ -4,8 +4,13 @@
     ViewBag.Title = "Index";
 }
 
+<style>
+    #cartTable td {
+        vertical-align: middle;
+    }
+</style>
 <h2>你的购物车</h2>
-<table class="table">
+<table id="cartTable" class="table">
     <thead>
         <tr>
             <th class="text-center">数量</th>
@@ -16,14 +21,22 @@
     </thead>
     <tbody>
         @foreach (var line in Model.Cart.Lines)
-	    {
-		    <tr>
+        {
+            <tr>
                 <td class="text-center">@line.Quantity</td>
                 <td class="text-center">@line.Product.Name</td>
                 <td class="text-right">@line.Product.Price.ToString("c")</td>
-                <td class="text-right">@((line.Quantity*line.Product.Price).ToString("c"))</td>
+                <td class="text-right">@((line.Quantity * line.Product.Price).ToString("c"))</td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                    {
+                        @Html.Hidden("ProductId", line.Product.ProductID)
+                        @Html.HiddenFor(x => x.ReturnUrl)
+                        <input class="btn btn-sm btn-warning" type="submit" value="Remove" />
+                    }
+                </td>
             </tr>
-	    }
+        }
     </tbody>
     <tfoot>
         <tr>
@@ -34,3 +47,6 @@
         </tr>
     </tfoot>
 </table>
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">继续购物</a>
+</div>

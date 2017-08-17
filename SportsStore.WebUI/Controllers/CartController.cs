@@ -18,11 +18,11 @@ namespace SportsStore.WebUI.Controllers
             repository = repo;
         }
 
-        public ViewResult Index(string returnUrl)
+        public ViewResult Index(Cart cart, string returnUrl)
         {
             return View(new CartIndexViewModel
             {
-                Cart = GetCart(),
+                Cart = cart,
                 ReturnUrl = returnUrl
             });
         }
@@ -33,14 +33,14 @@ namespace SportsStore.WebUI.Controllers
         /// <param name="productId"></param>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
-        public RedirectToRouteResult AddToCart(int productId, string returnUrl)
+        public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
         {
             Product product = repository.Products
                 .FirstOrDefault(p => p.ProductID == productId);
 
             if (product != null)
             {
-                GetCart().AddItem(product, 1);
+                cart.AddItem(product, 1);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
@@ -51,31 +51,26 @@ namespace SportsStore.WebUI.Controllers
         /// <param name="productId"></param>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
-        public RedirectToRouteResult RemoveFromCart(int productId, string returnUrl)
+        public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl)
         {
             Product product = repository.Products
                 .FirstOrDefault(p => p.ProductID == productId);
 
             if (product != null)
             {
-                GetCart().RemoveLine(product);
+                cart.RemoveLine(product);
             }
-            return RedirectToRoute("Index", new { returnUrl });
+            return RedirectToAction("Index", new { returnUrl });
         }
 
         /// <summary>
-        /// 获得购物车中的物品
+        /// 购物车摘要
         /// </summary>
+        /// <param name="cart"></param>
         /// <returns></returns>
-        private Cart GetCart()
+        public PartialViewResult Summary(Cart cart)
         {
-            Cart cart = (Cart)Session["Cart"];
-            if (cart == null)
-            {
-                cart = new Cart();
-                Session["Cart"] = cart;
-            }
-            return cart;
+            return PartialView(cart);
         }
     }
 }
