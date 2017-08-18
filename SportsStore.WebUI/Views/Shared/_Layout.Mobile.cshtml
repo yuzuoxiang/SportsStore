@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div data-role="page" id="page1">
+        <div data-theme="a" data-role="header" data-position="fixed">
+            <h3>SportsStore</h3>
+            @Html.Action("Menu", "Nav")
+        </div>
+        <div data-role="content">
+            <ul data-role="listview" data-divider-theme="b" datainset="false">
+                @RenderBody()
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
