@@ -67,6 +67,7 @@ namespace SportsStore.WebUI.App_Start
         {
             //System.Web.Mvc.DependencyResolver.SetResolver(new Infrastructrue.NinjectDependencyResolver(kernel));
             kernel.Bind<IProductsRepository>().To<EFProductRepository>();
+            kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>();
         }
     }
 }
