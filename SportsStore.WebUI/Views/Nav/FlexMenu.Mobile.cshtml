@@ -5,6 +5,7 @@
         @*<li>@Html.ActionLink("Home","List","Product",null,new { data_transition = "fade" })</li>*@
         @foreach (var link in Model)
         {
+            
             <li>
                 @Html.RouteLink(link, new
                {

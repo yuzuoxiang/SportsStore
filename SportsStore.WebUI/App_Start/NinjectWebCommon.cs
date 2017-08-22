@@ -14,7 +14,8 @@ namespace SportsStore.WebUI.App_Start
     using SportsStore.Domain.Abstract;
     using SportsStore.Domain.Concrete;
     using SportsStore.Domain.Entities;
-
+    using SportsStore.WebUI.Infrastructrue.Abstract;
+    using SportsStore.WebUI.Infrastructrue.Concrete;
     public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
@@ -68,6 +69,7 @@ namespace SportsStore.WebUI.App_Start
             //System.Web.Mvc.DependencyResolver.SetResolver(new Infrastructrue.NinjectDependencyResolver(kernel));
             kernel.Bind<IProductsRepository>().To<EFProductRepository>();
             kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>();
+            kernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
         }
     }
 }

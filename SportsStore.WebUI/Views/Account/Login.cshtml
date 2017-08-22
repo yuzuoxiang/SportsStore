@@ -1,0 +1,26 @@
+﻿@model SportsStore.WebUI.Models.LoginViewModel
+@{
+    ViewBag.Title = "登录";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel">
+    <div class="panel-heading"></div>
+    <h3>登录</h3>
+</div>
+<div class="panel-body">
+    <p class="lead">请登录账号</p>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+        <div class="form-group">
+            <label>用户名：</label>
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form control" })
+        </div>
+        <div class="form-group">
+            <label>密 码：</label>
+            @Html.PasswordFor(m => m.Passwrod, new { @class = "form control" })
+        </div>
+        <input type="submit" value="登录" class="btn btn-primary" />
+    }
+</div>
